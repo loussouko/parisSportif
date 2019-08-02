@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %} connexion {% endblock %}
+
+{% block body %}
+<div class="container-fluid mx-2">
+    <div class="row">
+         <div class="col-md-12">
+                    <div class="offset-md-3 col-md-6 bg-success mt-4">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-6">
+                                    <img src="../../medias/{{ match.equipeP.image }}" alt="">
+                                    <div class="text-center">
+                                        <p class="badge badge-danger badge-pill mt-4 px-5" style="font-size: 50px; padding: auto auto" >
+                                            {% if not match.id == parisS.match_id and not user.id == parisS.utilisateur  %}
+                                            {{ match.scoreP }}
+                                            {% else %}
+                                            {{ parisS.scoreP }}
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                     <img src="../../medias/{{ match.equipeA.image }}" alt="">
+                                     <div class="text-center">
+                                        <p class="badge badge-danger badge-pill mt-4 px-5" style="font-size: 50px; padding: auto auto" >
+                                              {% if not match.id == parisS.match_id and not user.id == parisS.utilisateur  %}
+                                            {{ match.scoreA }}
+                                            {% else %}
+                                            {{ parisS.scoreA }}
+                                            {% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                        </div>
+                     </div>
+            </div>
+            </div>
+
+
+             <div class="col-lg-4 offset-lg-4" style="margin-top: 10px;">
+            <form action="" method="post" class="bg-warning px-4" id="form" >
+                <h3 class="text-center text-light">Parier</h3>
+                <div class="form-group">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success offset-4 my-2">Parier</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+    <script>
+    $('input, select').attr({"class":"form-control rounded rounded-pill"});
+    $('#form label').attr({"class":"col-form-label text-center col-sm-12"})
+    </script>
+{% endblock %}

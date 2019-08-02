@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %} connexion {% endblock %}
+
+{% block body %}
+<div class="container-fluid mx-2">
+    <div class="row">
+   <div class="col-lg-4 offset-lg-4" style="margin-top: 10px;">
+        {% if error %}
+       <div class="alert alert-success">
+           <p class="text-center text-danger">Utilisateur inconnu ou mauvais de mot de passe</p>
+       </div>
+       {% endif %}
+       <form action="login" method="post" class="bg-warning px-4" style="border-radius: 25px;" id="form">
+           {% csrf_token %}
+           <h3 class="text-center text-light">CONNECTEZ VOUS</h3>
+       <div class="form-group">
+         {{ form.as_p }}
+       </div>
+
+           <div class="form-group">
+               <button type="submit" class="btn btn-success offset-4 my-2 rounded rounded-pill">Se connecter</button>
+           </div>
+           <div class="form-group">
+               <p class="text-primary text-center" id="lien" data-toggle="modal" data-target="#liens">mot de passe oublie?</p>
+               <p class="text-light text-center">Nouveau s'inscrire</p>
+               <button type="button" class="btn btn-success rounded rounded-pill offset-4 my-2" onclick="document.location.href='{% url 'inscription' %}'">S'inscrire!</button>
+           </div>
+       </form>
+       <div class="modal" id="liens">
+           <div class="modal-dialog modal-dialog-centered">
+               <div class="modal-content">
+                   <div class="modal-header">
+                       <h5 class="modal-title text-danger">RENITIALISEZ MOT DE PASSE</h5>
+                       <button type="button" class="close" data-dismiss="modal" ><span aria-hidden="true">&times;</span></button>
+                   </div>
+                   <div class="modal-body">
+                       <form action="reset" method="post">
+                           <div class="form-group">
+                               <div class="col-sm-12">
+                                   <input type="email" id="rmail" name="rmail" class="form-control rounded rounded-pill" placeholder="email">
+                               </div>
+                           </div>
+                           <div class="form-group">
+                               <div class="col-sm-12">
+                                   <input type="password" id="mdp" name="rmdp" class="form-control rounded rounded-pill" placeholder="Mot de passe">
+                               </div>
+                           </div>
+                   </div>
+                   <div class="modal-footer">
+                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                       <button type="submit" class="btn btn-primary">Modifier</button>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+</div>
+{% endblock %}
+{% block script %}
+    <script>
+    $('input, select').attr({"class":"form-control rounded rounded-pill"});
+    $('#form label').attr({"class":"col-form-label text-center col-sm-12"})
+    </script>
+{% endblock %}
